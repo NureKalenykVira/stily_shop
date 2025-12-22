@@ -1,0 +1,81 @@
+.address-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  font-family: 'Raleway', sans-serif;
+  margin-top: 1rem;
+
+  .left {
+    flex: 1;
+
+    .default-label {
+      color: #4a799f;
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .full-name {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .address-text {
+      margin-bottom: 12px;
+    }
+
+    .address-text,
+    .phone {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 20px;
+
+    button {
+      background: none;
+      border: none;
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 0;
+
+      img {
+        width: 14px;
+        height: 14px;
+      }
+
+      &.edit:hover,
+      &.delete:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .address-card {
+    .actions {
+      button {
+        font-size: 0;
+        gap: 0;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}

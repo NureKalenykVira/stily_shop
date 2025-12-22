@@ -1,0 +1,108 @@
+<!-- Затемнення фону -->
+<div class="modal-backdrop" (click)="closeModal()"></div>
+
+<!-- Модальне вікно -->
+<div class="address-modal">
+  <button class="close-button" (click)="closeModal()" aria-label="Закрити"> × </button>
+  <h2 class="page-title">Додати нову адресу</h2>
+
+  <!-- Форма -->
+  <form #form="ngForm" (ngSubmit)="save(form)" class="contact-form">
+    <label>
+      Ім’я *
+      <input type="text" name="firstName" [(ngModel)]="address.firstName" required #firstName="ngModel" />
+      <small class="error" *ngIf="firstName.invalid && (firstName.touched || form.submitted)">
+        Введіть ім’я.
+      </small>
+    </label>
+
+    <label>
+      Прізвище *
+      <input type="text" name="lastName" [(ngModel)]="address.lastName" required #lastName="ngModel" />
+      <small class="error" *ngIf="lastName.invalid && (lastName.touched || form.submitted)">
+        Введіть прізвище.
+      </small>
+    </label>
+
+    <label>
+      Вулиця *
+      <input type="text" name="street" [(ngModel)]="address.street" required #street="ngModel" />
+      <small class="error" *ngIf="street.invalid && (street.touched || form.submitted)">
+        Введіть вулицю.
+      </small>
+    </label>
+
+    <div class="row">
+      <label>
+        Номер будинку *
+        <input
+          type="text"
+          name="house"
+          [(ngModel)]="address.house"
+          required
+          pattern="^\d+[a-zA-Zа-яА-Я]?$"
+          #house="ngModel"
+        />
+        <small class="error" *ngIf="house.invalid && (house.touched || form.submitted)">
+          <ng-container *ngIf="house.errors?.['required']">Введіть номер будинку.</ng-container>
+          <ng-container *ngIf="house.errors?.['pattern']">Номер має містити тільки цифри та, за потреби, одну літеру.</ng-container>
+        </small>
+      </label>
+
+      <label>
+        Номер квартири
+        <input type="text" name="flat" [(ngModel)]="address.flat" />
+      </label>
+    </div>
+
+    <label>
+      Поштовий індекс *
+      <input
+        type="text"
+        name="zip"
+        [(ngModel)]="address.zip"
+        required
+        pattern="^\d{5}$"
+        #zip="ngModel"
+      />
+      <small class="error" *ngIf="zip.invalid && (zip.touched || form.submitted)">
+        <ng-container *ngIf="zip.errors?.['required']">Введіть поштовий індекс.</ng-container>
+        <ng-container *ngIf="zip.errors?.['pattern']">Поштовий індекс має містити 5 цифр.</ng-container>
+      </small>
+    </label>
+
+    <label>
+      Місто *
+      <input type="text" name="city" [(ngModel)]="address.city" required #city="ngModel" />
+      <small class="error" *ngIf="city.invalid && (city.touched || form.submitted)">
+        Введіть місто.
+      </small>
+    </label>
+
+    <label>
+      Номер телефону *
+      <input
+        type="tel"
+        name="phone"
+        [(ngModel)]="address.phone"
+        required
+        pattern="^[\d\s()+-]{10,}$"
+        #phone="ngModel"
+      />
+      <small class="error" *ngIf="phone.invalid && (phone.touched || form.submitted)">
+        <ng-container *ngIf="phone.errors?.['required']">Введіть номер телефону.</ng-container>
+        <ng-container *ngIf="phone.errors?.['pattern']">Невірний формат номера.</ng-container>
+      </small>
+    </label>
+
+    <label class="consent-checkbox">
+      <input type="checkbox" [(ngModel)]="address.isDefault" name="isDefault" />
+      <span class="custom-checkbox"></span>
+      Адреса за замовчуванням
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-button">Зберегти</button>
+    </div>
+  </form>
+</div>

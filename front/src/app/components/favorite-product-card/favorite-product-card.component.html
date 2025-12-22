@@ -1,0 +1,27 @@
+<a [routerLink]="['/products', productId]" class="favorite-card-link">
+  <div class="favorite-card">
+    <img [src]="imageUrl" [alt]="name" class="product-image" />
+
+    <div class="product-info">
+      <div class="product-name">{{ name }}</div>
+      <div class="product-status" [ngClass]="status">
+        <span *ngIf="status === 'available'">В наявності</span>
+        <span *ngIf="status === 'unavailable'">Наразі відсутній</span>
+        <span *ngIf="status === 'low'">
+        <span class="desktop-only">
+          Ця модель є в невеликій кількості на складі. <br />
+          Зробіть замовлення, поки ваш розмір не закінчився.
+        </span>
+        <span class="mobile-only">
+          Обмежена кількість. Замовте зараз.
+        </span>
+      </span>
+      </div>
+      <div class="product-price">{{ price }} грн</div>
+    </div>
+
+    <button class="remove-button" (click)="onRemove()" aria-label="Видалити">
+      <img src="assets/icons/delete.svg" alt="Видалити" />
+    </button>
+  </div>
+</a>

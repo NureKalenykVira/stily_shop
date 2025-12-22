@@ -1,0 +1,143 @@
+.favorite-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  .favorite-card {
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+
+  .favorite-card:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.favorite-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  font-family: 'Raleway', sans-serif;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  max-height: 150px;
+
+  .product-image {
+    width: 150px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .product-info {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+
+    .product-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-status {
+      color: #4a799f;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      line-height: 17px;
+
+      &.available {
+        color: #4a799f;
+      }
+
+      &.unavailable {
+        color: #d32424;
+      }
+
+      &.low {
+        color: #008042;
+      }
+    }
+
+
+    .product-price {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .remove-button {
+    padding: 16px 20px 0 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover img {
+      opacity: 0.6;
+    }
+  }
+}
+
+.desktop-only {
+  display: inline;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: inline !important;
+  }
+
+  .favorite-card {
+    margin-bottom: 1rem;
+    max-height: 120px;
+
+  .product-image {
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .product-info {
+    padding: 5px 10px;
+
+    .product-name {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      margin-top: -20px;
+    }
+
+    .product-status {
+      font-size: 12px;
+      margin-bottom: 0.7rem;
+      line-height: 15px;
+    }
+
+    .product-price {
+      font-size: 16px;
+    }
+  }
+}
+
+  .remove-button {
+    margin-top: -100%;
+  }
+}

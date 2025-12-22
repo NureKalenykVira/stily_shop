@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h2>Перевірити розмір</h2>
+  <div class="close-btn" (click)="close()">✕</div>
+</div>
+
+<div class="accordion">
+  <!-- Точні виміри -->
+  <div class="item" [class.open]="section === 'product'" (click)="toggle('product')">
+    <div class="label">
+      Точні виміри товару
+      <span class="arrow" [class.rotated]="section === 'product'">›</span>
+    </div>
+    <div class="content" *ngIf="section === 'product'">
+      <img src="assets/size/product-measurements.jpg" alt="Точні виміри" />
+    </div>
+  </div>
+
+  <!-- Таблиці розмірів -->
+  <div class="item" [class.open]="section?.startsWith('tables')" (click)="toggleParent('tables')">
+    <div class="label">
+      Таблиці розмірів
+      <span class="arrow" [class.rotated]="section?.startsWith('tables')">›</span>
+    </div>
+
+    <div class="nested" *ngIf="section?.startsWith('tables')">
+      <!-- Куртки і топи -->
+      <div class="subitem" [class.open]="section === 'tables-tops'" (click)="toggle('tables-tops', $event)">
+        <div class="label">
+          Куртки і топи
+          <span class="arrow" [class.rotated]="section === 'tables-tops'">›</span>
+        </div>
+        <div class="content" *ngIf="section === 'tables-tops'">
+          <img src="assets/size/dimensional-mesh-outerwear.jpg" alt="Куртки і топи" />
+        </div>
+      </div>
+
+      <!-- Штани -->
+      <div class="subitem" [class.open]="section === 'tables-bottoms'" (click)="toggle('tables-bottoms', $event)">
+        <div class="label">
+          Штани
+          <span class="arrow" [class.rotated]="section === 'tables-bottoms'">›</span>
+        </div>
+        <div class="content" *ngIf="section === 'tables-bottoms'">
+          <img src="assets/size/dimensional-mesh-underwear.jpg" alt="Штани" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

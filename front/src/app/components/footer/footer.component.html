@@ -1,0 +1,58 @@
+<footer class="footer">
+  <div class="footer-content">
+    <!-- ЛОГО + СОЦМЕРЕЖІ -->
+    <div class="footer-col logo-col">
+      <div class="footer-logo">STILY SHOP</div>
+      <div class="social-icons">
+        <a href="#"><img src="assets/icons/instagram.svg" alt="Instagram" /></a>
+        <a href="#"><img src="assets/icons/facebook.svg" alt="Facebook" /></a>
+        <a href="#"><img src="assets/icons/telegram.svg" alt="Telegram" /></a>
+      </div>
+    </div>
+
+    <!-- СЕРВІС -->
+    <div class="footer-col">
+      <button class="footer-accordion" (click)="toggleSection(0)">
+        СЕРВІС
+        <span [class.rotated]="isSectionOpen(0)">›</span>
+      </button>
+      <div class="footer-links" [class.open]="isSectionOpen(0)">
+        <a routerLink="/payment">Оплата</a>
+        <a routerLink="/delivery">Доставка</a>
+        <a routerLink="/returns">Повернення і обмін</a>
+        <a routerLink="/contacts">Контакти</a>
+      </div>
+    </div>
+
+    <!-- МІЙ STILY SHOP -->
+    <div class="footer-col">
+      <button class="footer-accordion" (click)="toggleSection(1)">
+        МІЙ STILY SHOP
+        <span [class.rotated]="isSectionOpen(1)">›</span>
+      </button>
+      <div class="footer-links" [class.open]="isSectionOpen(1)">
+        <a routerLink="/account">Аккаунт</a>
+        <a routerLink="/favorites">Обране</a>
+        <a routerLink="/cart">Кошик</a>
+        <a routerLink="/account/orders">Замовлення</a>
+      </div>
+    </div>
+
+    <!-- КОНТАКТИ -->
+    <div class="footer-col">
+      <button class="footer-accordion" (click)="toggleSection(2)">
+        КОНТАКТИ
+        <span [class.rotated]="isSectionOpen(2)">›</span>
+      </button>
+      <div class="footer-links" [class.open]="isSectionOpen(2)">
+        <a href="#">+38 (ОХХ) ХХ ХХ ХХ</a>
+        <a href="#">info&#64;stilyshop.ua</a>
+        <a href="#">Політика конфіденційності</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 Stily Shop. All Rights Reserved</span>
+  </div>
+</footer>

@@ -1,0 +1,16 @@
+<a [routerLink]="'/products/' + product.id" class="product-link">
+  <div class="product-card" (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
+    <div class="image-wrapper">
+      <img [src]="isHovered ? product.images[1] : product.images[0]" alt="Product image" />
+    </div>
+    <div class="product-name">{{ product.name }}</div>
+    <div class="product-price">{{ product.price }} грн</div>
+    <div class="color-dots">
+      <div
+        class="color-dot"
+        *ngFor="let color of product.colors"
+        [style.backgroundColor]="color"
+      ></div>
+    </div>
+  </div>
+</a>

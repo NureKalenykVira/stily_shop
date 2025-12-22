@@ -1,0 +1,13 @@
+<app-header *ngIf="!hideChrome"></app-header>
+
+<app-toast-message
+  *ngIf="(toast.message$ | async) as msg"
+  [message]="msg"
+  [visible]="true"
+/>
+
+<main [@fader]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</main>
+
+<app-footer *ngIf="!hideChrome"></app-footer>

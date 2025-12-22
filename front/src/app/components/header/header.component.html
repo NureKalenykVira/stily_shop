@@ -1,0 +1,74 @@
+<header class="header" [class.scrolled]="isScrolled">
+    <div class="logo">
+      <a routerLink="/">STILY SHOP</a>
+    </div>
+
+  <!-- Десктопне меню -->
+  <div class="nav-wrapper desktop-only">
+    <div class="divider" ></div>
+    <div class="nav-item" routerLink="/products" [class.active]="router.url === '/products'">КАТАЛОГ</div>
+    <div class="divider"></div>
+    <div class="nav-item dropdown">
+      КЛІЄНТУ
+      <img src="assets/icons/arrow.svg" alt="arrow" class="arrow">
+      <div class="dropdown-menu">
+        <a routerLink="/payment">Оплата</a>
+        <a routerLink="/delivery">Доставка</a>
+        <a routerLink="/returns">Повернення і обмін</a>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="nav-item" routerLink="/contacts" [class.active]="router.url === '/contacts'">КОНТАКТИ</div>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Мобільне меню -->
+  <nav class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <a (click)="closeMobileMenu()" routerLink="/products" [class.active]="router.url === '/products'">КАТАЛОГ</a>
+    <a (click)="closeMobileMenu()" routerLink="/login">МІЙ АККАУНТ</a>
+    <a (click)="closeMobileMenu()" routerLink="/payment">ОПЛАТА</a>
+    <a (click)="closeMobileMenu()" routerLink="/delivery">ДОСТАВКА</a>
+    <a (click)="closeMobileMenu()" routerLink="/returns">ПОВЕРНЕННЯ І ОБМІН</a>
+    <a (click)="closeMobileMenu()" routerLink="/contacts" [class.active]="router.url === '/contacts'">КОНТАКТИ</a>
+  </nav>
+
+  <div class="icons">
+    <div
+      class="icon-label desktop-only"
+      [class.active]="isSearchActive || searchQuery"
+      (mouseenter)="isSearchActive = true"
+      (mouseleave)="handleMouseLeave()"
+    >
+      <img src="assets/icons/search.svg" alt="search" />
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Пошук..."
+        [(ngModel)]="searchQuery"
+        (focus)="isSearchActive = true"
+        (blur)="handleBlur()"
+      />
+    </div>
+
+    <div class="burger" (click)="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Серце і кошик завжди видимі -->
+    <div class="square-buttons">
+      <div class="icon-divider desktop-only"></div>
+      <div class="icon-square desktop-only" routerLink="/login">
+        <img src="assets/icons/profile.svg" alt="profile" />
+      </div>
+      <div class="icon-divider desktop-only"></div>
+      <div class="icon-square" routerLink="/favorites">
+        <img src="assets/icons/heart.svg" alt="favorites" />
+      </div>
+      <div class="icon-square black" routerLink="/cart">
+        <img src="assets/icons/cart.svg" alt="cart" />
+      </div>
+    </div>
+  </div>
+</header>

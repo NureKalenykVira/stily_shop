@@ -1,0 +1,19 @@
+<div class="address-card">
+  <div class="left">
+    <div *ngIf="isDefault" class="default-label">За замовчуванням</div>
+    <div class="full-name">{{ fullName }}</div>
+    <div class="address-text" [innerHTML]="addressText"></div>
+    <div class="phone">Тел. {{ phone }}</div>
+  </div>
+
+  <div class="actions">
+    <button (click)="onEdit()" class="edit">
+      <img src="assets/icons/pencil.svg" alt="Змінити" />
+      Змінити
+    </button>
+    <button (click)="onDelete()" class="delete">
+      <img src="assets/icons/delete.svg" alt="Видалити" />
+      Видалити
+    </button>
+  </div>
+</div>

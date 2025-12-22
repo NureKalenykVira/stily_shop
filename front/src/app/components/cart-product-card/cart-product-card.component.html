@@ -1,0 +1,49 @@
+<div class="cart-card-link" (click)="goToProduct()" [ngClass]="{ 'non-clickable': !clickable }">
+  <div class="cart-card" [ngClass]="{ minimal: minimal }">
+    <!-- Зображення -->
+    <img [src]="imageUrl" [alt]="name" class="product-image" />
+
+    <!-- Інформація про товар -->
+    <div class="product-info">
+      <div class="product-name">{{ name }}</div>
+      <div class="product-price">{{ price }} грн</div>
+      <div class="product-size">Розмір: {{ size }}</div>
+      <div class="product-color">Колір: {{ color }}</div>
+
+      <div
+        class="product-status"
+        *ngIf="!minimal"
+        [ngClass]="status"
+      >
+        <span *ngIf="status === 'available'">В наявності</span>
+        <span *ngIf="status === 'unavailable'">Наразі відсутній</span>
+        <span *ngIf="status === 'low'">Останні доступні товари</span>
+      </div>
+    </div>
+
+    <!-- Бічна колонка -->
+    <div class="action-column">
+      <button
+        class="remove-button"
+        *ngIf="!minimal"
+        (click)="onRemove($event)"
+        aria-label="Видалити"
+      >
+        <img src="assets/icons/delete.svg" alt="Видалити" />
+      </button>
+
+      <div class="quantity-controls" *ngIf="!minimal">
+        <button (click)="increaseQuantity($event)">+</button>
+        <span>{{ quantity }}</span>
+        <button (click)="decreaseQuantity($event)">−</button>
+      </div>
+
+      <!-- Якщо minimal — просто показуємо кількість -->
+      <div class="quantity-controls" *ngIf="minimal">
+        <span>{{ quantity }}</span>
+      </div>
+
+      <div class="total-price">{{ price * quantity }} грн</div>
+    </div>
+  </div>
+</div>

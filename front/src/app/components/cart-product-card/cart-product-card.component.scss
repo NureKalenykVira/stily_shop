@@ -1,0 +1,274 @@
+.cart-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  .cart-card {
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+
+  .cart-card:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.cart-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  font-family: 'Raleway', sans-serif;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  max-height: 150px;
+
+  .product-image {
+    width: 150px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .product-info {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+
+    .product-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-price {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-size,
+    .product-color {
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .product-status {
+      color: #4a799f;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 0.2rem;
+      line-height: 17px;
+
+      &.available {
+        color: #4a799f;
+      }
+
+      &.unavailable {
+        color: #d32424;
+      }
+
+      &.low {
+        color: #008042;
+      }
+    }
+  }
+
+  .action-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 15px 0 0;
+
+    .remove-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .quantity-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0.5rem 0;
+
+      button {
+        width: 32px;
+        height: 20px;
+        font-size: 16px;
+        color: #333;
+        border: 1px solid transparent;
+        background: none;
+        cursor: pointer;
+      }
+
+      span {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+
+    .total-price {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .cart-card {
+  .product-image {
+    width: 135px;
+  }
+
+  .product-info {
+    padding: 0 20px;
+
+    .product-name {
+      margin-bottom: 0.2rem;
+    }
+
+    .product-price {
+      margin-bottom: 0.5rem;
+    }
+
+    .product-size,
+    .product-color {
+      line-height: 16px;
+      width: 110px;
+    }
+
+    .product-status {
+      margin-top: 0.7rem;
+      margin-bottom: 0.5rem;
+      line-height: 14px;
+    }
+  }
+
+    .action-column {
+      padding: 0 5px 0 0;
+
+    .quantity-controls {
+      margin: 0.5rem 0;
+    }
+  }
+}
+
+.cart-card.minimal {
+  max-height: 110px;
+
+  .product-image {
+    width: 120px !important;
+  }
+
+  .product-info {
+    margin-top: -20px;
+
+    .product-name {
+      font-size: 14px;
+      margin-bottom: 0.2rem !important;
+    }
+
+    .product-price {
+      font-size: 14px;
+      margin-bottom: 0.6rem;
+    }
+
+    .product-size,
+    .product-color {
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+
+  .action-column {
+    padding-right: 6px !important;
+    padding-bottom: 15px;
+    margin-top: -20px;
+
+    .quantity-controls {
+
+      span {
+        font-size: 14px;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .total-price {
+      font-size: 14px;
+    }
+  }
+}
+
+.cart-card-link.non-clickable {
+  cursor: default;
+
+  .cart-card {
+    pointer-events: none;
+    box-shadow: none !important;
+  }
+}
+
+}
+
+.cart-card.minimal {
+  max-height: 105px;
+
+  .product-image {
+    width: 110px;
+  }
+
+  .product-info {
+    padding: 10px 16px;
+
+    .product-name {
+      font-size: 14px;
+      margin-bottom: 0.4rem;
+    }
+
+    .product-price {
+      font-size: 14px;
+      margin-bottom: 0.6rem;
+    }
+
+    .product-size,
+    .product-color {
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+
+  .action-column {
+    padding-right: 10px;
+    padding-bottom: 15px;
+
+    .quantity-controls {
+
+      span {
+        font-size: 14px;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .total-price {
+      font-size: 14px;
+    }
+  }
+}
+
+.cart-card-link.non-clickable {
+  cursor: default;
+
+  .cart-card {
+    pointer-events: none;
+    box-shadow: none !important;
+  }
+}
