@@ -1,0 +1,27 @@
+<h1 class="account-title">Мій обліковий запис</h1>
+
+<!-- ІМʼЯ ТА EMAIL -->
+<div class="account-block">
+  <div class="block-title">{{ user.name }} {{ user.surname }}</div>
+  <div class="block-value">{{ user.email }}</div>
+  <a routerLink="/account/contact" class="edit-link">
+    <img src="assets/icons/pencil.svg" alt="Змінити" />
+    Змінити
+  </a>
+</div>
+
+<!-- АДРЕСИ -->
+<div class="account-block">
+  <div class="block-title">Мої адреси</div>
+  <div class="block-value">У тебе немає жодних адрес</div>
+  <a routerLink="/account/addresses" class="edit-link">
+    <img src="assets/icons/pencil.svg" alt="Змінити" />
+    Змінити
+  </a>
+</div>
+
+<!-- ЗАМОВЛЕННЯ -->
+<div class="account-block">
+  <div class="block-title">Мої замовлення</div>
+  <div class="block-value">У тебе немає жодних замовлень</div>
+</div>

@@ -1,0 +1,158 @@
+<div class="contacts-page">
+  <button (click)="goHome()" class="back-link">← На головну</button>
+  <h1 class="page-title">Як ми можемо вам допомогти?</h1>
+
+  <p class="working-hours">
+    Відділ обслуговування клієнтів працює з понеділка по п’ятницю з 9:00 до 18:00.
+  </p>
+
+  <div class="contact-info">
+    <div class="contact-row">
+      <div class="contact-item">
+        <img src="assets/icons/phone.svg" alt="phone" />
+        <span>+380 ХХ ХХХ ХХХХ</span>
+      </div>
+      <div class="contact-item">
+        <img src="assets/icons/mail.svg" alt="email" />
+        <span>infostilyshop&#64;gmail.com</span>
+      </div>
+    </div>
+
+    <div class="company-details">
+      <p>
+        ****Marketing Investment Group S.A., офіс в Кракові (Польща), мкрн. Dywizjonu 303 Рав. 1, номер KRS 0000521685,<br />
+        NIP: 675-11-87-580, REGON: 351469736.****
+      </p>
+      <p>
+        Вартість дзвінка визначається згідно з тарифами оператора, з якого здійснюється дзвінок. Для підтримки високих стандартів
+        обслуговування та з міркувань безпеки всі телефонні розмови записуються.
+      </p>
+    </div>
+  </div>
+
+  <form #contactForm="ngForm" class="contact-form" (ngSubmit)="onSubmit(contactForm)">
+    <h2>Контактна форма</h2>
+
+    <label>
+      Ім’я та прізвище *
+      <input type="text" name="fullName" [(ngModel)]="formData.fullName" required #fullName="ngModel" />
+      <small class="error" *ngIf="fullName.invalid && (fullName.touched || contactForm.submitted)">
+        Введіть ім’я та прізвище.
+      </small>
+    </label>
+
+    <label>
+      Адреса електронної пошти *
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="formData.email"
+        required
+        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        #email="ngModel"
+      />
+      <small class="error" *ngIf="email.errors?.['required'] && (email.touched || contactForm.submitted)">
+        Введіть електронну адресу.
+      </small>
+      <small class="error" *ngIf="email.errors?.['pattern'] && (email.touched || contactForm.submitted)">
+        Невірний формат пошти.
+      </small>
+    </label>
+
+    <label>
+      Номер телефону *
+      <input
+        type="tel"
+        name="phone"
+        [(ngModel)]="formData.phone"
+        required
+        pattern="^\+380\d{9}$"
+        placeholder="+380..."
+        #phone="ngModel"
+      />
+      <small class="error" *ngIf="phone.errors?.['required'] && (phone.touched || contactForm.submitted)">
+        Введіть номер телефону.
+      </small>
+      <small class="error" *ngIf="phone.errors?.['pattern'] && (phone.touched || contactForm.submitted)">
+        Формат: +380XXXXXXXXX
+      </small>
+    </label>
+
+    <div class="form-group" (clickOutside)="dropdownOpen = false">
+      <span class="custom-label">Тема</span>
+      <div class="custom-select" (click)="toggleDropdown()" [class.open]="dropdownOpen">
+        <div class="selected-option">
+          {{ selectedOption || 'Оберіть тему' }}
+          <span class="arrow"></span>
+        </div>
+
+        <div class="options" *ngIf="dropdownOpen">
+          <div
+            class="option"
+            *ngFor="let option of topicOptions"
+            (click)="selectOption(option); $event.stopPropagation()"
+          >
+            {{ option }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <label>
+      Опис *
+      <textarea name="message" [(ngModel)]="formData.message" required rows="5" #message="ngModel"></textarea>
+      <small class="error" *ngIf="message.invalid && (message.touched || contactForm.submitted)">
+        Заповніть опис.
+      </small>
+    </label>
+
+    <label>
+      Номер замовлення
+      <input
+        type="text"
+        name="orderNumber"
+        [(ngModel)]="formData.orderNumber"
+        minlength="5"
+        #orderNumber="ngModel"
+      />
+      <small
+        class="error"
+        *ngIf="orderNumber.value?.length > 0 && orderNumber.errors?.['minlength'] && orderNumber.touched"
+      >
+      Має бути щонайменше 5 символів.
+      </small>
+    </label>
+
+    <label>
+      Номер товару
+      <input
+        type="text"
+        name="productNumber"
+        [(ngModel)]="formData.productNumber"
+        minlength="5"
+        #productNumber="ngModel"
+      />
+      <small
+        class="error"
+        *ngIf="productNumber.value?.length > 0 && productNumber.errors?.['minlength'] && productNumber.touched"
+      >
+      Має бути щонайменше 5 символів.
+      </small>
+    </label>
+
+    <label class="consent-checkbox">
+      <input type="checkbox" name="consent" [(ngModel)]="formData.consent" required #consent="ngModel" />
+      <span class="custom-checkbox"></span>
+      Я надаю згоду на обробку моїх даних.
+    </label>
+    <small class="error" *ngIf="consent.errors?.['required'] && contactForm.submitted">
+      Ви маєте дати згоду на обробку даних.
+    </small>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-button">Надіслати</button>
+    </div>
+  </form>
+</div>
+
+<app-scroll-to-top />

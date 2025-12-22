@@ -1,0 +1,14 @@
+<div class="dlg">
+  <div class="dlg__header">
+    <h3>{{ data.title }}</h3>
+  </div>
+
+  <div class="dlg__body">
+    <p class="dlg__text">{{ data.text }}</p>
+  </div>
+
+  <div class="dlg__footer">
+    <button class="btn" (click)="ref.close(false)">Скасувати</button>
+    <button class="btn btn-danger" (click)="ref.close(true)">Видалити</button>
+  </div>
+</div>

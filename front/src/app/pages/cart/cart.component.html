@@ -1,0 +1,61 @@
+<div class="cart-page">
+  <button (click)="goHome()" class="back-link">← На головну</button>
+  <h1 class="page-title">Кошик</h1>
+
+  <ng-container *ngIf="!hasProducts; else productList">
+    <div class="no-products">
+      <p class="empty-text">Ваш кошик наразі порожній</p>
+      <button class="add-address" (click)="toShop()">До покупок</button>
+    </div>
+  </ng-container>
+
+  <ng-template #productList>
+    <div class="cart-wrapper">
+      <!-- Ліва колонка: товари -->
+      <div class="cart-left">
+        <div class="product-grid">
+          <app-cart-product-card
+            *ngFor="let product of cartProducts"
+            [productId]="product.id"
+            [imageUrl]="product.image || ''"
+            [name]="product.name"
+            [price]="product.price"
+            [status]="product.status || 'available'"
+            [size]="product.size || ''"
+            [color]="product.color || ''"
+            (remove)="removeFromCart(product.id)"
+            (quantityChange)="updateQuantity(product.id, $event)"
+          ></app-cart-product-card>
+        </div>
+      </div>
+
+      <!-- Права колонка: підсумок -->
+      <div class="cart-summary">
+        <div class="summary-box">
+          <div class="line">
+            <span>Вартість товарів</span>
+            <span>{{ getTotal() }} грн</span>
+          </div>
+          <div class="line">
+            <span>Вартість доставки</span>
+            <span>0 грн</span>
+          </div>
+          <div class="line total">
+            <span>До сплати</span>
+            <span>{{ getTotal() }} грн з ПДВ</span>
+          </div>
+          <button class="pay-btn" (click)="check()">Оформити замовлення</button>
+          <div class="delivery-info">
+            <p><img src="assets/icons/free-shipping.svg" alt="" /> Безкоштовна доставка від 2600 грн</p>
+            <p><img src="assets/icons/return.svg" alt="" /> 14 днів на повернення</p>
+            <p><img src="assets/icons/delivery-time.svg" alt="" />
+              Стандартна доставка <strong>4–7 робочих днів</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <app-scroll-to-top />
+</div>

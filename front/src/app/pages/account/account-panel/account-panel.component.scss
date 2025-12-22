@@ -1,0 +1,45 @@
+.account-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 32px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.account-block {
+  margin-bottom: 24px;
+  position: relative;
+  padding-right: 80px;
+
+  .block-title {
+    margin-bottom: 4px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+  }
+
+  .block-value {
+    font-family: 'Raleway', sans-serif;
+    color: #666;
+    font-size: 14px;
+  }
+
+  .edit-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,244 @@
+<!-- СТОРІНКА ТОВАРІВ -->
+<div class="products-page">
+
+<div class="mobile-toolbar" *ngIf="isMobileView">
+  <button class="toolbar-btn" (click)="openSortModal()">
+    <img src="assets/icons/sort.svg" alt="Сортувати" class="icon-img" />
+    <span>Сортувати</span>
+  </button>
+
+  <div class="divider"></div>
+
+  <button class="toolbar-btn" (click)="openFilterModal()">
+    <img src="assets/icons/filter.svg" alt="Фільтрувати" class="icon-img" />
+    <b>Фільтрувати</b>
+    <span *ngIf="selectedFilterCount > 0">({{ selectedFilterCount }})</span>
+  </button>
+</div>
+
+  <!-- ФІЛЬТРИ -->
+  <div class="filters">
+    <!-- Фільтр ціни -->
+    <div class="filter-item">
+      <div class="select-wrapper" [class.opened]="isPriceOpen">
+        <div class="fake-select" (click)="isPriceOpen = !isPriceOpen">
+          <span class="label">Ціна</span>
+          <span class="arrow" [class.rotated]="isPriceOpen"></span>
+        </div>
+        <div class="price-dropdown" [class.opened]="isPriceOpen">
+          <div class="inputs">
+            <div class="input-wrapper">
+              <span class="label-muted">від</span>
+              <input type="number" [(ngModel)]="priceMin" />
+              <span class="suffix">грн</span>
+            </div>
+            <div class="input-wrapper">
+              <span class="label-muted">до</span>
+              <input type="number" [(ngModel)]="priceMax" />
+              <span class="suffix">грн</span>
+            </div>
+          </div>
+          <div class="slider-range">
+            <input type="range" min="0" max="2000" [(ngModel)]="priceMin" (input)="syncSlider('min')" />
+            <input type="range" min="0" max="2000" [(ngModel)]="priceMax" (input)="syncSlider('max')" />
+          </div>
+          <button class="apply-btn" (click)="applyPriceFilter()">Фільтрувати</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Кастомні фільтри -->
+    <div class="filter-item" *ngFor="let filter of filters">
+      <div class="select-wrapper" [class.opened]="filter.opened">
+        <div class="fake-select" (click)="filter.opened = !filter.opened">
+          <span class="label">
+            {{ filter.label }}
+            <span *ngIf="filter.value.length > 0">({{ filter.value.length }})</span>
+          </span>
+          <span class="arrow" [class.rotated]="filter.opened"></span>
+        </div>
+        <div class="custom-dropdown" *ngIf="filter.opened">
+          <label *ngFor="let option of filter.options" class="dropdown-option">
+            <input
+              type="checkbox"
+              [value]="option"
+              [checked]="filter.value.includes(option)"
+              (change)="toggleOption(filter, option)"
+            />
+            <span class="custom-checkbox"></span>
+            <span
+              class="color-square"
+              *ngIf="filter.key === 'color'"
+              [ngStyle]="{ 'background-color': getColorCode(option) }"
+            ></span>
+            {{ option }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОБРАНІ ФІЛЬТРИ -->
+<div class="selected-filters" *ngIf="hasSelectedFilters()">
+  <span class="label">Обрані:</span>
+
+  <div class="selected-chip" *ngFor="let value of getSelectedFilters()">
+    {{ value.label }}
+    <span class="remove" (click)="removeFilter(value)">×</span>
+  </div>
+
+  <button class="clear-all" (click)="clearAllFilters()">Очистити</button>
+</div>
+
+
+  <!-- ПАНЕЛЬ УПРАВЛІННЯ -->
+  <div class="products-toolbar">
+    <div class="sort-dropdown" (click)="isSortOpen = !isSortOpen">
+      <span class="sort-label">⇅ Сортувати:</span>
+      <span class="sort-value">{{ selectedSort }}</span>
+      <span class="arrow" [class.rotated]="isSortOpen"></span>
+
+      <div class="sort-options" *ngIf="isSortOpen">
+        <div
+          *ngFor="let option of sortOptions"
+          (click)="selectSort(option)"
+          [class.selected]="option === selectedSort"
+        >
+          {{ option }}
+          <span *ngIf="option === selectedSort">✓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar-right">
+      <span class="product-count">{{ filteredProducts.length }} товари</span>
+
+      <div class="view-modes">
+        <div
+          class="view-icon"
+          *ngFor="let mode of viewModes"
+          [class.active]="viewMode === mode"
+          (click)="viewMode = mode"
+        >
+          <ng-container *ngFor="let box of [].constructor(mode)">
+            <span class="view-box"></span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- СПИСОК ТОВАРІВ -->
+<div class="product-grid" [ngClass]="'cols-' + viewMode">
+  <app-product-card
+    *ngFor="let product of filteredProducts"
+    [product]="{
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      colors: product.colors ?? [],
+      images: product.images ?? []
+    }"
+  />
+</div>
+
+<!-- Мобільна тінь -->
+<div class="mobile-filter-overlay" *ngIf="isFilterModalOpen" (click)="closeFilterModal()"></div>
+
+<!-- Мобільна панель сортування -->
+<div class="mobile-sort-panel" *ngIf="isSortModalOpen">
+  <div class="mobile-filter-header">
+    <h2>Сортувати</h2>
+    <button class="close-btn" (click)="closeSortModal()">×</button>
+  </div>
+
+  <div class="mobile-sort-body">
+    <div
+      *ngFor="let option of sortOptions"
+      class="sort-option"
+      [class.active]="option === selectedSort"
+      (click)="selectSort(option)"
+    >
+      {{ option }}
+      <span *ngIf="option === selectedSort">✓</span>
+    </div>
+  </div>
+</div>
+
+<!-- Мобільна панель фільтрів -->
+<div class="mobile-filter-panel filter-modal" *ngIf="isFilterModalOpen">
+  <div class="mobile-filter-header">
+    <h2>Фільтрувати</h2>
+    <button class="close-btn" (click)="closeFilterModal()">×</button>
+  </div>
+
+  <div class="mobile-filter-body">
+    <div class="filters">
+      <!-- Фільтр ціни -->
+      <div class="filter-item">
+        <div class="select-wrapper" [class.opened]="isPriceOpen">
+          <div class="fake-select" (click)="isPriceOpen = !isPriceOpen">
+            <span class="label">Ціна</span>
+            <span class="arrow" [class.rotated]="isPriceOpen"></span>
+          </div>
+          <div class="price-dropdown" [class.opened]="isPriceOpen">
+            <div class="inputs">
+              <div class="input-wrapper">
+                <span class="label-muted">від</span>
+                <input type="number" [(ngModel)]="priceMin" />
+                <span class="suffix">грн</span>
+              </div>
+              <div class="input-wrapper">
+                <span class="label-muted">до</span>
+                <input type="number" [(ngModel)]="priceMax" />
+                <span class="suffix">грн</span>
+              </div>
+            </div>
+            <div class="slider-range">
+              <input type="range" min="0" max="2000" [(ngModel)]="priceMin" (input)="syncSlider('min')" />
+              <input type="range" min="0" max="2000" [(ngModel)]="priceMax" (input)="syncSlider('max')" />
+            </div>
+            <button class="apply-btn" (click)="applyPriceFilter()">Фільтрувати</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Інші фільтри -->
+      <div class="filter-item" *ngFor="let filter of filters">
+        <div class="select-wrapper" [class.opened]="filter.opened">
+          <div class="fake-select" (click)="filter.opened = !filter.opened">
+            <span class="label">
+              {{ filter.label }}
+              <span *ngIf="filter.value.length > 0">({{ filter.value.length }})</span>
+            </span>
+            <span class="arrow" [class.rotated]="filter.opened"></span>
+          </div>
+          <div class="custom-dropdown" *ngIf="filter.opened">
+            <label *ngFor="let option of filter.options" class="dropdown-option">
+              <input
+                type="checkbox"
+                [value]="option"
+                [checked]="filter.value.includes(option)"
+                (change)="toggleOption(filter, option)"
+              />
+              <span class="custom-checkbox"></span>
+              <span
+                class="color-square"
+                *ngIf="filter.key === 'color'"
+                [ngStyle]="{ 'background-color': getColorCode(option) }"
+              ></span>
+              {{ option }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-filter-footer">
+    <button class="clear-btn" (click)="clearAllFilters()">Очистити фільтри</button>
+    <button class="apply-btn" (click)="closeFilterModal()">Фільтрувати</button>
+  </div>
+</div>
+
+<app-scroll-to-top />

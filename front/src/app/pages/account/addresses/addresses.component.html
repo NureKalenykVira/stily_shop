@@ -1,0 +1,43 @@
+<div class="addresses-page">
+  <div class="header-row">
+    <h1 class="page-title">Мої адреси</h1>
+    <button class="add-address" (click)="addAddress()">+ Додати адресу</button>
+  </div>
+
+  <!-- Доставка -->
+  <div class="address-block">
+    <div class="icon-title">
+      <img src="assets/icons/car.svg" alt="shipping" />
+      <strong>Дані для доставки</strong>
+    </div>
+
+    <ng-container *ngIf="deliveryAddress; else noDelivery">
+      <app-address-card
+        [fullName]="deliveryAddress.fullName"
+        [addressText]="deliveryAddress.addressText"
+        [phone]="deliveryAddress.phone"
+        [isDefault]="deliveryAddress.isDefault"
+        (edit)="editAddress('delivery')"
+        (delete)="deleteAddress('delivery')"
+      />
+    </ng-container>
+
+
+    <ng-template #noDelivery>
+      <p class="address-text">Наразі у тебе немає жодних адрес</p>
+    </ng-template>
+  </div>
+
+  <!-- Рахунок -->
+  <div class="address-block">
+    <div class="icon-title">
+      <img src="assets/icons/card2.svg" alt="billing" />
+      <strong>Дані для рахунку</strong>
+    </div>
+    <p class="address-text">
+      Наразі у тебе немає жодних адрес
+    </p>
+  </div>
+</div>
+
+<app-add-address-modal *ngIf="showModal" (clickOutside)="closeModal()" (close)="closeModal()" />

@@ -1,0 +1,106 @@
+<div class="header">
+  <h2>Замовлення</h2>
+
+  <div class="tools">
+    <input class="search"
+           placeholder="Пошук: № / клієнт / товар / адреса / телефон"
+           (input)="onSearchInput($event)" />
+
+    <select class="select" (change)="onStatusChange($event)">
+      <option value="all">Усі статуси</option>
+      <option value="new">new</option>
+      <option value="paid">paid</option>
+      <option value="shipped">shipped</option>
+      <option value="cancelled">cancelled</option>
+    </select>
+
+    <select class="select" (change)="onPayChange($event)">
+      <option value="all">Будь-яка оплата</option>
+      <option value="cod">Готівка</option>
+      <option value="card">Картка</option>
+    </select>
+  </div>
+</div>
+
+<div class="card table">
+  <table>
+    <thead>
+      <tr>
+        <th>№</th>
+        <th>Клієнт</th>
+        <th>Контакти</th>
+        <th>Позицій</th>
+        <th>Сума</th>
+        <th>Оплата</th>
+        <th>Доставка</th>
+        <th>Статус</th>
+        <th>Дата</th>
+        <th class="right">Дії</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let o of filtered()">
+        <td class="bold">#{{ o.id }}</td>
+
+        <td>
+          <div class="customer">
+            <span class="tag" [class.guest]="o.customer.kind==='guest'">
+              {{ o.customer.kind === 'guest' ? 'Гість' : 'Користувач' }}
+            </span>
+            <div class="name">{{ displayName(o) }}</div>
+          </div>
+        </td>
+
+        <td class="muted">
+          <div *ngIf="o.customer.email">{{ o.customer.email }}</div>
+          <div *ngIf="displayPhone(o)">{{ displayPhone(o) }}</div>
+        </td>
+
+        <td>{{ itemsCount(o) }}</td>
+        <td>{{ o.total | number:'1.0-2' }}</td>
+        <td>{{ paymentLabel(o.payment) }}</td>
+        <td>{{ deliveryLabel(o.delivery) }}</td>
+
+        <td>
+          <span class="status"
+                [class.paid]="o.status==='paid'"
+                [class.shipped]="o.status==='shipped'"
+                [class.cancelled]="o.status==='cancelled'">
+            {{ o.status }}
+          </span>
+        </td>
+
+        <td>{{ o.createdAt | date:'yyyy-MM-dd HH:mm' }}</td>
+
+        <td class="right">
+          <div class="actions">
+            <button type="button"
+                    class="link success"
+                    (click)="setStatus(o,'paid')"
+                    [disabled]="o.status==='paid' || o.payment!=='cod'"
+                    title="Доступно лише для накладеного платежу і не оплачених">
+              Позначити paid
+            </button>
+
+            <button type="button"
+                    class="link"
+                    (click)="setStatus(o,'shipped')">
+              shipped
+            </button>
+
+            <button type="button"
+                    class="link danger"
+                    (click)="setStatus(o,'cancelled')">
+              cancel
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <tr *ngIf="filtered().length === 0">
+        <td colspan="10" class="empty">Нічого не знайдено</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

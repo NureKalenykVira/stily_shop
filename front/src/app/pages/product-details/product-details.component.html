@@ -1,0 +1,146 @@
+<div class="product-page" *ngIf="product as p">
+  <!-- Лінк назад -->
+  <a routerLink="/products" class="back-link">← Назад до каталогу</a>
+
+  <div class="product-content">
+    <!-- Галерея -->
+    <div class="product-gallery">
+      <div class="thumbnail-list">
+        <img
+          *ngFor="let img of p.images; trackBy: trackByIndex"
+          [src]="img"
+          (click)="selectedImage = img"
+          [class.selected]="selectedImage === img"
+        />
+      </div>
+      <div class="main-image" (swipeleft)="nextImage()" (swiperight)="prevImage()">
+        <img [src]="selectedImage || p.images?.[0] || ''" />
+        <span class="image-counter" *ngIf="product?.images?.length && screenIsMobile">
+          {{ currentIndex + 1 }} / {{ product?.images?.length }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Інфо -->
+    <div class="product-info">
+      <h1>{{ p.name }}</h1>
+      <p class="price">{{ p.price }} грн</p>
+
+      <hr class="divider" />
+
+      <!-- Кольори -->
+      <div class="colors" *ngIf="p.colors?.length">
+        <p>Доступні кольори</p>
+        <div class="color-dots">
+          <div
+            *ngFor="let color of p.colors"
+            class="dot"
+            [style.backgroundColor]="color"
+            [class.selected]="selectedColor === color"
+            (click)="selectedColor = color"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Розміри -->
+      <div class="sizes" *ngIf="p.sizes?.length">
+        <p>Вибери розмір</p>
+        <div class="size-buttons">
+          <span
+            *ngFor="let size of p.sizes"
+            (click)="selectedSize = size"
+            [class.selected]="selectedSize === size"
+          >
+            {{ size }}
+          </span>
+        </div>
+        <a class="size-guide" (click)="openSizeGuide()">
+          <img src="assets/icons/size.svg" alt="icon" />
+          Перевірити розмір
+        </a>
+      </div>
+
+      <!-- Кількість + Кнопки -->
+      <div class="action-row">
+        <div class="quantity">
+          <p>Кількість</p>
+          <div class="qty-control">
+            <button (click)="decreaseQuantity()">−</button>
+            <span>{{ quantity }}</span>
+            <button (click)="increaseQuantity()">+</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="add-to-cart" (click)="addToCart()">Додати до кошика</button>
+          <button class="wishlist" [class.active]="isFavorite" (click)="toggleFavorite()">
+            <img src="assets/icons/full-heart.svg" alt="Wishlist" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Інфо з іконками -->
+      <div class="delivery-info">
+        <p><img src="assets/icons/free-shipping.svg" alt="" /> Безкоштовна доставка від 2600 грн</p>
+        <p><img src="assets/icons/return.svg" alt="" /> 14 днів на повернення</p>
+        <p>
+          <img src="assets/icons/delivery-time.svg" alt="" />
+          Стандартна доставка <strong>4–7 робочих днів</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="product-tabs-wrapper">
+<div class="product-tabs">
+  <div class="tab-buttons">
+    <button
+      *ngFor="let tab of tabs"
+      [class.active]="selectedTab === tab.key"
+      (click)="selectTab(tab.key)">
+      {{ tab.label }}
+    </button>
+  </div>
+
+  <div class="tab-content">
+    <div *ngIf="selectedTab === 'details'">
+      <p><strong>Код товару</strong></p>
+      <p>{{ product?.['sku'] || 'NFOA8CPPV7N1' }}</p>
+      <p><strong>Колір</strong></p>
+      <p>
+        <span
+          class="color-dot-text"
+          [style.backgroundColor]="selectedColor || '#000'"
+        ></span>
+        {{ getColorName(selectedColor) || 'Чорний' }}
+      </p>
+      <div class="detail-row" *ngIf="product?.fabric?.length">
+        <span class="label"><strong>Склад</strong></span>
+        <ul class="value">
+          <li *ngFor="let item of product?.fabric">{{ item }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTab === 'delivery'">
+      <p>Ми доставимо вам замовлення на суму понад 2600 грн безкоштовно.</p>
+      <p>Стандартна доставка: 4–7 робочих днів.</p>
+      <p>Післяплата передбачає додаткову комісію в розмірі 89 грн.</p>
+      <p><strong>При замовленні до 2600 грн:</strong></p>
+      <ul>
+        <li>Укрпошта – 199 ₴</li>
+        <li>Нова Пошта – 239 ₴</li>
+        <li>Кур’єром Укрпошти – 199 ₴</li>
+        <li>Кур’єром Нової Пошти – 239 ₴</li>
+      </ul>
+    </div>
+
+    <div *ngIf="selectedTab === 'returns'">
+      <p>У вас є 14 днів з моменту отримання замовлення, щоб повернути його.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<app-scroll-to-top />

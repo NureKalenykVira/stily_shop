@@ -1,0 +1,15 @@
+<div class="admin-shell">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/admin">Admin</a>
+    <nav class="menu">
+      <a routerLink="/admin/products"  routerLinkActive="active">Товари</a>
+      <a routerLink="/admin/customers" routerLinkActive="active">Клієнти</a>
+      <a routerLink="/admin/orders"    routerLinkActive="active">Замовлення</a>
+      <a routerLink="/admin/analytics" routerLinkActive="active">Аналітика</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

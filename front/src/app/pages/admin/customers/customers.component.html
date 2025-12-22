@@ -1,0 +1,47 @@
+<div class="header">
+  <h2>Клієнти</h2>
+  <div class="tools">
+    <input class="search"
+           placeholder="Пошук: імʼя / email / телефон / адреса"
+           (input)="onSearchInput($event)" />
+  </div>
+</div>
+
+<div class="card table">
+  <table>
+    <thead>
+      <tr>
+        <th>Імʼя</th>
+        <th>Email</th>
+        <th>Телефон</th>
+        <th>Адреса (деф.)</th>
+        <th>Замовлень</th>
+        <th>Останнє</th>
+        <th>Реєстрація</th>
+        <th>Згоди</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of filtered()">
+        <td>{{ c.firstName }} {{ c.lastName }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.addrPhone }}</td>
+        <td [innerHTML]="formatAddress(c)"></td>
+        <td>{{ c.ordersCount }}</td>
+        <td>{{ c.lastOrderDate || '—' }}</td>
+        <td>{{ c.createdAt | date:'yyyy-MM-dd' }}</td>
+        <td class="consents">
+          <span class="pill" [class.ok]="c.acceptTerms" title="Згода з умовами користування">
+            <i></i> terms
+          </span>
+          <span class="pill" [class.ok]="c.acceptMarketing" title="Згода на маркетингові розсилки">
+            <i></i> marketing
+          </span>
+        </td>
+      </tr>
+      <tr *ngIf="filtered().length === 0">
+        <td colspan="8" class="empty">Нічого не знайдено</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

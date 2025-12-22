@@ -1,0 +1,155 @@
+.cart-page {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 16px;
+  margin-top: 6%;
+  font-family: 'Raleway', sans-serif;
+
+  .back-link {
+    background-color: transparent;
+    border: none;
+    display: inline-block;
+    color: #222;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .page-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .no-products {
+    text-align: start;
+    min-height: 40vh;
+
+    .empty-text {
+      font-size: 18px;
+      margin-bottom: 2rem;
+    }
+
+    .add-address {
+      padding: 12px 32px;
+      font-size: 15px;
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+
+      &:hover {
+        background: #fff;
+        color: #000;
+      }
+    }
+  }
+
+  .cart-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+
+    .cart-left {
+      .product-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    .cart-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .summary-box {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 24px;
+
+        .line {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 12px;
+          font-size: 15px;
+
+          &.total {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 16px;
+          }
+        }
+
+        .pay-btn {
+          width: 100%;
+          margin-top: 24px;
+          padding: 10px;
+          font-size: 15px;
+          background-color: #0c0c0c;
+          color: #fff;
+          border: 3px solid #191919;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.5s;
+
+          &:hover {
+            background-color: #f0efef;
+            color: #191919;
+          }
+        }
+
+        .delivery-info {
+          margin-top: 12px;
+
+          p {
+            font-size: 14px;
+
+            img {
+              width: 14px;
+              height: 14px;
+              margin-right: 0.3rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .back-link {
+    display: none !important;
+  }
+
+  .cart-page {
+    margin-top: 10% !important;
+  }
+
+  .cart-page {
+    .page-title {
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+
+    .cart-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .cart-summary {
+      .summary-box {
+        padding: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  .cart-page {
+    margin-top: 20% !important;
+  }
+}

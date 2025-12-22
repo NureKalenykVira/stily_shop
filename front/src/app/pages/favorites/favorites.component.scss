@@ -1,0 +1,101 @@
+.favorites-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px;
+  font-family: 'Raleway', sans-serif;
+
+  .back-link {
+    background-color: transparent;
+    border: none;
+    margin-top: 5.5%;
+    margin-bottom: 0.4rem;
+    display: inline-block;
+    color: hsl(0, 0%, 20%);
+    font-size: 18px;
+    font-family: 'Raleway', Arial, sans-serif;
+    text-decoration: none;
+  }
+
+  .page-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .empty-text {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .add-address {
+    padding: 8px 40px;
+    margin-top: 1rem;
+    border: 1px solid black;
+    background: black;
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: 'Raleway', Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s;
+
+    &:hover {
+      background: white;
+      border: 1px solid black;
+      color: #000;
+    }
+  }
+
+  .no-products {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    text-align: start;
+    height: 60vh;
+  }
+
+  .product-grid {
+    min-height: 20vw !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .back-link {
+    display: none !important;
+  }
+
+  .favorites-page {
+    margin-top: 10% !important;
+    margin-left: 2% !important;
+    min-height: 70vh !important;
+  }
+
+  .no-products {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    text-align: start;
+    height: 60vh;
+    gap: 16px;
+  }
+
+  .product-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  app-favorite-product-card:first-child {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .page-title {
+    margin-top: 20% !important;
+  }
+}

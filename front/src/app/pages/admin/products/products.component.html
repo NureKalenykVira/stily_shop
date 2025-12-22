@@ -1,0 +1,63 @@
+<div class="header">
+  <h2>Товари</h2>
+  <div class="tools">
+    <input class="search" placeholder="🔍︎ Пошук" (input)="onSearchInput($event)" />
+    <select class="select" (change)="onStatusChange($event)">
+      <option value="all">Усі статуси</option>
+      <option value="active">active</option>
+      <option value="draft">draft</option>
+    </select>
+    <button class="btn" (click)="add()">+ Додати</button>
+  </div>
+</div>
+
+<div class="card table">
+  <table>
+    <thead>
+      <tr>
+        <th class="image-col">Фото</th>
+        <th>Назва</th>
+        <th>SKU</th>
+        <th>Категорія</th>
+        <th>Кольори</th>
+        <th>Розміри</th>
+        <th>Ціна</th>
+        <th>Склад</th>
+        <th>Статус</th>
+        <th class="right">Дії</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of filtered()">
+        <td class="image-col">
+          <img class="thumb" [src]="p.images?.[0] || 'assets/placeholder.png'" alt="" />
+          <span class="thumb-count" *ngIf="(p.images?.length || 0) > 1">+{{ (p.images?.length || 0) - 1 }}</span>
+        </td>
+        <td class="bold">{{ p.title }}</td>
+        <td>{{ p.sku }}</td>
+        <td>{{ p.category || '—' }}</td>
+
+        <td class="colors">
+          <span class="dot" *ngFor="let c of (p.colors || [])" [style.background]="c" [title]="c"></span>
+          <span class="muted" *ngIf="!p.colors?.length">—</span>
+        </td>
+
+        <td class="sizes">
+          <span class="chip" *ngFor="let s of (p.sizes || [])">{{ s }}</span>
+          <span class="muted" *ngIf="!p.sizes?.length">—</span>
+        </td>
+
+        <td>{{ p.price | number:'1.0-2' }}</td>
+        <td>{{ p.stock }}</td>
+        <td><span class="status" [class.draft]="p.status==='draft'">{{ p.status }}</span></td>
+        <td class="right">
+          <button class="link" (click)="edit(p)">Редагувати</button>
+          <button class="link danger" (click)="confirmRemove(p)">Видалити</button>
+        </td>
+      </tr>
+      <tr *ngIf="filtered().length === 0">
+        <td colspan="10" class="empty">Нічого не знайдено</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

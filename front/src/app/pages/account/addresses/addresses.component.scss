@@ -1,0 +1,59 @@
+.addresses-page {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  font-family: 'Raleway', sans-serif;
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .add-address {
+      padding: 8px 16px;
+      background: white;
+      border: 1px solid black;
+      color: #000;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.5s, color 0.5s;
+
+      &:hover {
+        background: black;
+        color: white;
+      }
+    }
+  }
+
+  .address-block {
+    border-top: 1px solid #ddd;
+    padding-top: 16px;
+
+    .icon-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .address-text {
+      color: #555;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+  }
+}

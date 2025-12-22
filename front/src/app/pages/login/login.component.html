@@ -1,0 +1,81 @@
+<div class="login-page">
+  <button (click)="goHome()" class="back-link">← На головну</button>
+  <h1 class="page-title">Увійти в обліковий запис</h1>
+
+  <div class="login-wrapper">
+    <!-- Ліва колонка: форма + соцмережі -->
+    <div class="login-left">
+      <form #loginForm="ngForm" class="login-form" (ngSubmit)="onLogin(loginForm)">
+        <label>
+          Електронна пошта *
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="loginData.email"
+            required
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            #email="ngModel"
+          />
+          <small class="error" *ngIf="email.errors?.['required'] && (email.touched || loginForm.submitted)">
+            Введіть електронну адресу.
+          </small>
+          <small class="error" *ngIf="email.errors?.['pattern'] && (email.touched || loginForm.submitted)">
+            Невірний формат пошти.
+          </small>
+        </label>
+
+        <label>
+          Пароль *
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="loginData.password"
+            required
+            minlength="8"
+            #password="ngModel"
+          />
+          <small class="error" *ngIf="password.errors?.['required'] && (password.touched || loginForm.submitted)">
+            Введіть пароль.
+          </small>
+          <small class="error" *ngIf="password.errors?.['minlength'] && (password.touched || loginForm.submitted)">
+            Пароль має бути щонайменше 8 символів.
+          </small>
+        </label>
+
+        <a class="forgot-link" (click)="openForgotModal()" href="javascript:void(0)">Забули пароль?</a>
+
+        <app-forgot-password-modal
+          *ngIf="showForgotModal"
+          (closeModal)="closeForgotModal()">
+        </app-forgot-password-modal>
+
+        <div class="form-actions">
+          <button type="submit" class="submit-button">Увійти</button>
+        </div>
+      </form>
+
+      <div class="social-login">
+        <p>Увійти за допомогою</p>
+        <button class="social-btn facebook">
+          <img src="assets/icons/google.svg" alt="Google" />
+          Google
+        </button>
+        <button class="social-btn google">
+          <img src="assets/icons/facebook.svg" alt="Facebook" />
+          Facebook
+        </button>
+      </div>
+    </div>
+
+    <!-- Права колонка: блок "Вперше тут?" -->
+    <div class="register-box">
+      <h2>Вперше тут?</h2>
+      <ul>
+        <li>✓ Отримуй найновіші рекомендації щодо товарів</li>
+        <li>✓ Відстежуй статус свого замовлення</li>
+        <li>✓ Керуй списком улюблених товарів</li>
+      </ul>
+      <button class="register-btn" (click)="register()">Зареєструватися</button>
+    </div>
+  </div>
+</div>

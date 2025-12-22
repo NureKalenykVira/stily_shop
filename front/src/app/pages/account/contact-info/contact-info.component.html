@@ -1,0 +1,48 @@
+<div class="contact-form">
+  <h1 class="page-title">Контактні дані</h1>
+
+  <form #contactForm="ngForm" (ngSubmit)="save(contactForm)">
+    <label>
+      Ім’я *
+      <input
+        type="text"
+        name="firstName"
+        [(ngModel)]="name"
+        required
+        #firstName="ngModel"
+      />
+      <small class="error" *ngIf="firstName.invalid && (firstName.touched || contactForm.submitted)">
+        Введіть ім’я.
+      </small>
+    </label>
+
+    <label>
+      Прізвище *
+      <input
+        type="text"
+        name="lastName"
+        [(ngModel)]="surname"
+        required
+        #lastName="ngModel"
+      />
+      <small class="error" *ngIf="lastName.invalid && (lastName.touched || contactForm.submitted)">
+        Введіть прізвище.
+      </small>
+    </label>
+
+    <label>
+      Електронна пошта *
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        disabled
+      />
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-button" [disabled]="contactForm.invalid">Зберегти</button>
+    </div>
+  </form>
+</div>

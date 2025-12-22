@@ -1,0 +1,49 @@
+<div class="dlg">
+  <div class="dlg__header">
+    <h3>{{ data ? 'Редагувати товар' : 'Новий товар' }}</h3>
+  </div>
+
+  <div class="dlg__body">
+    <form [formGroup]="form" class="grid">
+      <label>Назва<input formControlName="title" /></label>
+      <label>SKU<input formControlName="sku" /></label>
+      <label>Категорія<input formControlName="category" /></label>
+      <label>Ціна<input type="number" formControlName="price" /></label>
+      <label>Склад<input type="number" formControlName="stock" /></label>
+      <label>Статус
+        <select formControlName="status">
+          <option value="active">active</option>
+          <option value="draft">draft</option>
+        </select>
+      </label>
+
+      <!-- Фото: 2 колонки — textarea + прев’ю праворуч -->
+      <div class="image-row full">
+        <label class="stretch">Фото (URL, через кому)
+          <textarea rows="3" formControlName="images" placeholder="https://... , https://..."></textarea>
+        </label>
+
+        <div class="preview" *ngIf="firstImage(); else noImg">
+          <img [src]="firstImage()" alt="" />
+          <span class="muted">{{ imagesCountHint() }}</span>
+        </div>
+
+        <ng-template #noImg>
+          <div class="preview placeholder">
+            <div class="ph"></div>
+            <span class="muted">Немає прев’ю</span>
+          </div>
+        </ng-template>
+      </div>
+
+      <label>Кольори (через кому)<input formControlName="colors" placeholder="black, #FF0000, beige" /></label>
+      <label>Розміри (через кому)<input formControlName="sizes" placeholder="S, M, L" /></label>
+      <label class="full">Тканина (через кому)<input formControlName="fabric" placeholder="бавовна, поліестер" /></label>
+    </form>
+  </div>
+
+  <div class="dlg__footer">
+    <button class="btn" (click)="ref.close()">Скасувати</button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">Зберегти</button>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+.header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.header h2{font-weight:600}
+.tools{display:flex;gap:8px;align-items:center}
+.search{border:1px solid #ddd;border-radius:12px;background:#fff;padding:8px 32px;font-family:'Raleway',sans-serif}
+.search:focus{outline:none;border-color:#191919}
+
+.card{border:1px solid #ddd;border-radius:12px;background:#fff;transition:box-shadow .2s}
+.card:hover{box-shadow:0 0 12px rgba(0,0,0,.1)}
+
+.table{overflow:auto}
+table{width:100%;border-collapse:collapse;font-family:'Raleway',sans-serif}
+th,td{padding:12px 14px;border-top:1px solid #eee;vertical-align: top}
+thead th{background:#f7f7f7;text-align:left}
+.bold{font-weight:600}
+.empty{text-align:center;color:#777}
+
+.addr{max-width:320px}
+.addr div{line-height:1.2}
+.chip{
+  display:inline-block; padding:2px 8px; border:1px solid #ddd; border-radius:999px; margin-top:6px;
+  font-size:12px; background:#fff; color:#555;
+}
+.chip.ok{background:#e8f5e9; border-color:#cfe8d4; color:#2e7d32}
+.chip.no{background:#ffe8e8; border-color:#f5cccc; color:#c62828}
+
+.consents { white-space: nowrap; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  margin-right: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  font-size: 12px;
+  color: #374151;
+  background: #f9fafb;
+}
+.pill i {
+  width: 12px; height: 12px; border-radius: 50%;
+  display: inline-block; background: #f3f4f6; border: 1px solid #e5e7eb;
+}
+.pill.ok {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+.pill.ok i {
+  background: #10b981; border-color: #10b981;
+}

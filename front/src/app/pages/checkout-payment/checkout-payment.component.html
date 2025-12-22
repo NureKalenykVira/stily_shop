@@ -1,0 +1,156 @@
+<div class="checkout-delivery-page">
+  <!-- Кроки -->
+  <div class="checkout-steps">
+    <span class="step completed">1 Кошик</span>
+    <span class="step completed">2 Доставка</span>
+    <span class="step current">3 Оплата</span>
+    <span class="step">4 Підсумок</span>
+  </div>
+
+  <div class="delivery-layout">
+    <!-- Ліва колонка: вибір + форма оплати -->
+    <div class="delivery-left">
+  <h2>Виберіть метод оплати</h2>
+
+  <form id="payForm" #payForm="ngForm" (ngSubmit)="submit(payForm)" class="contact-form">
+    <!-- Готівка -->
+    <div class="delivery-method">
+      <label>
+        <input type="radio" name="method" [(ngModel)]="method" value="cod" />
+        Готівкою при отриманні
+      </label>
+    </div>
+
+    <!-- Карта -->
+    <div class="delivery-method">
+      <label>
+        <input type="radio" name="method" [(ngModel)]="method" value="card" />
+        Банківською карткою
+      </label>
+
+      <div class="pickup-section" *ngIf="method === 'card'">
+        <h3 class="h3">Дані картки</h3>
+
+        <div class="card-grid">
+  <div class="field-row">
+    <div class="label">Ім’я на картці</div>
+    <div>
+      <input
+        name="holder"
+        [(ngModel)]="card.holder"
+        placeholder="IVAN IVANOV"
+        required
+        pattern="^[A-Za-zА-Яа-яЇїІіЄєҐґ'\-\s]{2,}$"
+        #holder="ngModel"
+        autocomplete="cc-name"
+      />
+      <small class="error" *ngIf="holder.invalid && (holder.touched || payForm.submitted)">
+        Введіть ім’я (лише літери/пробіли, ≥2 символи).
+      </small>
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div class="label">Номер картки</div>
+    <div>
+      <input
+        name="number"
+        [(ngModel)]="card.number"
+        (ngModelChange)="onCardNumberChange($event)"
+        placeholder="4242 4242 4242 4242"
+        required
+        inputmode="numeric"
+        maxlength="19"
+        #number="ngModel"
+        autocomplete="cc-number"
+      />
+      <small class="error" *ngIf="(number.invalid || numberLuhnError) && (number.touched || payForm.submitted)">
+        Номер картки некоректний.
+      </small>
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div class="label">Термін дії / CVC</div>
+    <div class="inputs-inline">
+      <div>
+        <input
+          name="expiry"
+          [(ngModel)]="card.expiry"
+          (ngModelChange)="onExpiryChange($event)"
+          placeholder="MM/YY"
+          required
+          pattern="^(0[1-9]|1[0-2])\/\d{2}$"
+          #expiry="ngModel"
+          autocomplete="cc-exp"
+          maxlength="5"
+        />
+        <small class="error" *ngIf="(expiry.invalid || expiryPastError) && (expiry.touched || payForm.submitted)">
+          Формат MM/YY, дата має бути в майбутньому.
+        </small>
+      </div>
+      <div>
+        <input
+          name="cvc"
+          [(ngModel)]="card.cvc"
+          placeholder="123"
+          required
+          pattern="^\d{3,4}$"
+          inputmode="numeric"
+          maxlength="4"
+          #cvc="ngModel"
+          autocomplete="cc-csc"
+        />
+        <small class="error" *ngIf="cvc.invalid && (cvc.touched || payForm.submitted)">
+          3–4 цифри.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+  </form>
+</div>
+
+    <!-- Права колонка: підсумок такого ж вигляду -->
+    <div class="delivery-right checkout-summary">
+      <div class="checkout-products">
+        <app-cart-product-card
+          *ngFor="let product of cart"
+          [productId]="product.id"
+          [imageUrl]="product.image || ''"
+          [name]="product.name"
+          [price]="product.price"
+          [status]="product.status || 'available'"
+          [size]="product.size || ''"
+          [color]="product.color || ''"
+          [quantity]="product.quantity || 1"
+          [minimal]="true"
+          [clickable]="false"
+        ></app-cart-product-card>
+      </div>
+
+      <div class="summary-box">
+        <div class="line">
+          <span>Вартість товарів</span>
+          <span>{{ itemsTotal | number:'1.0-0' }} грн</span>
+        </div>
+        <div class="line">
+          <span>Доставка</span>
+          <span>{{ delivery?.price || 0 }} грн</span>
+        </div>
+        <div class="line total">
+          <span>До сплати</span>
+          <span>{{ grandTotal | number:'1.0-0' }} грн з ПДВ</span>
+        </div>
+        <button
+          class="pay-btn"
+          type="submit"
+          form="payForm"
+          [disabled]="isProcessing || (method==='card' && (numberLuhnError || expiryPastError || !payForm.valid))">
+          {{ isProcessing ? 'Опрацьовуємо…' : 'Сплатити' }}
+        </button>
+      </div>
+    </div>
+  </div>

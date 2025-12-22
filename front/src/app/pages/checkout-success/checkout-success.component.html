@@ -1,0 +1,82 @@
+<div class="checkout-delivery-page">
+  <!-- Кроки -->
+  <div class="checkout-steps">
+    <span class="step completed">1 Кошик</span>
+    <span class="step completed">2 Доставка</span>
+    <span class="step completed">3 Оплата</span>
+    <span class="step current">4 Підсумок</span>
+  </div>
+
+  <div class="delivery-layout">
+    <!-- Ліва колонка -->
+    <div class="delivery-left">
+      <div class="success-box">
+        Ваше замовлення <strong>№ {{ orderId }}</strong> успішно оформлено.
+        Очікуйте інформації про доставку.
+      </div>
+
+      <div class="section">
+        <h3>Доставка</h3>
+        <div class="row">
+          <span>Метод:</span>
+          <strong>{{ delivery?.methodLabel || '—' }}</strong>
+        </div>
+        <div class="row" *ngIf="delivery?.pickupPoint">
+          <span>Пункт видачі:</span>
+          <strong>{{ delivery?.pickupPoint?.name }}</strong>
+        </div>
+        <div class="row">
+          <span>Адреса / Одержувач:</span>
+          <strong>{{ formatAddress() }}</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Оплата</h3>
+        <div class="row">
+          <span>Метод оплати:</span>
+          <strong>{{ paymentLabel() }}</strong>
+        </div>
+        <div class="row">
+          <span>Статус:</span>
+          <strong>Оплачено</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Права колонка -->
+    <div class="delivery-right checkout-summary">
+      <div class="checkout-products">
+        <app-cart-product-card
+          *ngFor="let p of items"
+          [productId]="p.id"
+          [imageUrl]="p.image || ''"
+          [name]="p.name"
+          [price]="p.price"
+          [status]="p.status || 'available'"
+          [size]="p.size || ''"
+          [color]="p.color || ''"
+          [quantity]="p.quantity || 1"
+          [minimal]="true"
+          [clickable]="false"
+        ></app-cart-product-card>
+      </div>
+
+      <div class="summary-box">
+        <div class="line">
+          <span>Вартість товарів</span>
+          <span>{{ itemsTotal | number:'1.0-0' }} грн</span>
+        </div>
+        <div class="line">
+          <span>Доставка</span>
+          <span>{{ deliveryPrice | number:'1.0-0' }} грн</span>
+        </div>
+        <div class="line total">
+          <span>Разом</span>
+          <span>{{ grandTotal | number:'1.0-0' }} грн з ПДВ</span>
+        </div>
+        <button type="button" class="back-btn" routerLink="/products">На головну</button>
+      </div>
+    </div>
+  </div>
+</div>

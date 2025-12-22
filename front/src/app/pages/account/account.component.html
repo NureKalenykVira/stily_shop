@@ -1,0 +1,14 @@
+<div class="account-page">
+  <aside class="sidebar">
+    <a [routerLink]="['.']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Панель</a>
+    <a routerLink="contact" routerLinkActive="active">Контактні дані</a>
+    <a routerLink="addresses" routerLinkActive="active">Мої адреси</a>
+    <a routerLink="orders" routerLinkActive="active">Мої замовлення</a>
+    <a routerLink="password" routerLinkActive="active">Змінити пароль</a>
+    <a (click)="logout()">Вийти</a>
+  </aside>
+
+  <section class="content">
+    <router-outlet></router-outlet>
+  </section>
+</div>

@@ -1,0 +1,124 @@
+.faq-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: 'Raleway', Arial, sans-serif;
+
+  .back-link {
+    background-color: transparent;
+    border: none;
+    margin-top: 7.5%;
+    margin-bottom: 0.4rem;
+    display: inline-block;
+    color: hsl(0, 0%, 20%);
+    font-size: 18px;
+    text-decoration: none;
+    font-family: 'Raleway', Arial, sans-serif;
+  }
+
+  .ask-link {
+    background-color: transparent;
+    border: none;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: hsl(0, 0%, 20%);
+    font-size: 16px;
+    text-decoration: underline;
+    font-family: 'Raleway', Arial, sans-serif;
+  }
+
+  .page-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #e0e0e0;
+
+    .faq-question {
+      width: 100%;
+      padding: 8px 0 !important;
+      font-weight: 500;
+      font-size: 18px;
+      font-family: 'Raleway', Arial, sans-serif;
+      background: none;
+      border: none;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: #222;
+      text-decoration: none;
+
+      &:visited,
+      &:hover,
+      &:active {
+        color: #222;
+        text-decoration: none;
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+
+        img {
+          width: 16px;
+          height: 16px;
+          transition: transform 0.3s ease;
+        }
+      }
+
+      .rotated img {
+        transform: rotate(180deg);
+      }
+    }
+
+    .faq-answer {
+      font-family: 'Raleway', Arial, sans-serif;
+      padding: 8px 0 16px 0;
+      font-size: 16px;
+      font-weight: 400;
+      color: #444;
+      line-height: 30px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+
+      &.visible {
+        padding: 8px 0 16px 0;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .back-link {
+    display: none !important;
+  }
+
+  .page-title {
+    margin-top: 10% !important;
+  }
+
+}
+
+@media (max-width: 760px) {
+  .back-link {
+    display: none !important;
+  }
+
+  .page-title {
+    margin-top: 15% !important;
+  }
+}

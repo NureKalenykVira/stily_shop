@@ -1,0 +1,97 @@
+<div class="header">
+  <h2>Аналітика</h2>
+</div>
+
+<div class="kpi-grid kpi-grid1">
+  <div class="kpi card"><div class="label">Дохід за місяць (грн)</div><div class="value">{{ totalRevenueMonth() | number:'1.0-2' }}</div></div>
+  <div class="kpi card"><div class="label">Кількість унікальних покупців (за місяць)</div><div class="value">{{ totalCustomers() }}</div></div>
+</div>
+
+
+<div class="kpi-grid">
+  <div class="kpi card"><div class="label">Середній чек (грн)</div><div class="value">{{ avgCheck() | number:'1.0-2' }}</div></div>
+  <div class="kpi card"><div class="label">Медіанний чек (грн)</div><div class="value">{{ medianCheck() | number:'1.0-2' }}</div></div>
+  <div class="kpi card"><div class="label">Найчастіший товар</div><div class="value">{{ mostFrequentProduct() }}</div></div>
+  <div class="kpi card"><div class="label">Мін. день (к-сть покупців)</div><div class="value">{{ minDay()?.date }} — {{ minDay()?.customers }}</div></div>
+  <div class="kpi card"><div class="label">Макс. день (к-сть покупців)</div><div class="value">{{ maxDay()?.date }} — {{ maxDay()?.customers }}</div></div>
+</div>
+
+<div class="card chart tall">
+  <h3>Кількість покупців по днях</h3>
+  <canvas
+    baseChart
+    [data]="customersByDayBarData"
+    [options]="customersByDayBarOpts"
+    [type]="'bar'"
+    style="display:block; width:100%; height:320px;"
+  ></canvas>
+</div>
+
+<div class="card chart tall">
+  <h3>Виручка по днях</h3>
+  <div class="chart-box revenue">
+    <canvas baseChart [data]="revenueLineData" [options]="revenueLineOpts" [type]="'line'"></canvas>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card chart">
+    <h3>Топ товарів (за кількістю од.)</h3>
+    <div class="top">
+    <canvas baseChart
+      [data]="topProductsData"
+      [options]="topProductsOpts"
+      [type]="'bar'"
+      [style.height.px]="barHeight(topProductsData)">
+    </canvas>
+    </div>
+  </div>
+
+  <div class="card chart top">
+    <h3>Купують разом з «{{ mostFrequentProduct() }}»</h3>
+    <div class="top">
+    <canvas baseChart
+      [data]="companionsData"
+      [options]="companionsOpts"
+      [type]="'bar'"
+      [style.height.px]="barHeight(companionsData)">
+    </canvas>
+    </div>
+  </div>
+</div>
+
+  <div class="row two-cards">
+    <div class="card chart">
+      <h3>Оплата (частка)</h3>
+      <div class="chart-box">
+        <canvas baseChart [data]="paymentData" [options]="paymentOpts" [type]="'doughnut'"></canvas>
+      </div>
+    </div>
+
+    <div class="card chart">
+      <h3>Доставка (частка)</h3>
+      <div class="chart-box">
+        <canvas baseChart [data]="deliveryData" [options]="deliveryOpts" [type]="'doughnut'"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card chart pair-col chart--overflow">
+    <h3>Найчастіші комбінації (пари)</h3>
+    <div class="chart-box chart-box--narrow">
+      <canvas baseChart
+              [data]="pairsFrequentData"
+              [options]="pairsOpts"
+              [type]="'bar'"></canvas>
+    </div>
+  </div>
+
+  <div class="card chart pair-col chart--overflow">
+    <h3>Найрідкісніші комбінації (пари)</h3>
+    <div class="chart-box chart-box--wide">
+      <canvas baseChart
+              [data]="pairsRareData"
+              [options]="pairsOpts"
+              [type]="'bar'"></canvas>
+    </div>
+  </div>

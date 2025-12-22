@@ -1,0 +1,21 @@
+<div class="faq-page">
+  <button (click)="goHome()" class="back-link">← На головну</button>
+  <h1 class="page-title">Повернення і обмін</h1>
+
+  <div class="faq-list">
+    <div class="faq-item" *ngFor="let item of faqList; let i = index">
+      <button class="faq-question" (click)="toggle(i)">
+        {{ item.question }}
+        <span [class.rotated]="openedIndex === i"><img src="assets/icons/arrow.svg" alt="phone" /></span>
+      </button>
+      <div class="faq-answer"
+        [class.visible]="openedIndex === i"
+        [innerHTML]="item.answer"
+        #answer
+      ></div>
+    </div>
+  </div>
+  <button (click)="askUs()" class="ask-link">Не знайли відповіді на ваше питання? Задайте його нам.</button>
+</div>
+
+<app-scroll-to-top />

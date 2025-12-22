@@ -1,0 +1,27 @@
+<div class="favorites-page">
+  <button (click)="goHome()" class="back-link">← На головну</button>
+  <h1 class="page-title">Мій список бажань</h1>
+
+  <ng-container *ngIf="!hasFavorites; else productList">
+    <div class="no-products">
+      <p class="empty-text">Ви ще не додали жодного товару до списку бажань</p>
+      <button class="add-address" (click)="toShop()">До покупок</button>
+    </div>
+  </ng-container>
+
+  <ng-template #productList>
+    <div class="product-grid">
+      <app-favorite-product-card
+        *ngFor="let product of favoriteProducts"
+        [productId]="product.id"
+        [imageUrl]="product.image"
+        [name]="product.name"
+        [price]="product.price"
+        [status]="product.status"
+        (remove)="removeFromFavorites(product.id)"
+      ></app-favorite-product-card>
+    </div>
+  </ng-template>
+</div>
+
+<app-scroll-to-top />
