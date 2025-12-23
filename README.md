@@ -95,9 +95,9 @@ Implemented analytics:
 ## Repository Structure
 
 stily_shop/
-  front/        # Angular SPA
-  server/       # Go REST API
-  README.md
+front/        # Angular SPA
+server/       # Go REST API
+README.md
 
 ---
 
