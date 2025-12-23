@@ -162,5 +162,3 @@ Additional features and UI pages are planned but not yet implemented:
 - contact / feedback page
 - extended user profile pages
 - UI and UX refinements
-
----
