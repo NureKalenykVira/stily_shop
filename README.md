@@ -94,27 +94,27 @@ Implemented analytics:
 
 ## Repository Structure
 
-stily_shop/
-front/        # Angular SPA
-server/       # Go REST API
-README.md
+        stily_shop/
+          front/        # Angular SPA
+          server/       # Go REST API
+          README.md
 
 ---
 
 ## Getting Started (Development)
 
 ### Backend
-cd server
-cp .env.example .env
-go mod tidy
-go run .
+        cd server
+        cp .env.example .env
+        go mod tidy
+        go run .
 
 Backend will be available at http://localhost:8080.
 
 ### Frontend
-cd ../front
-npm install
-npm start
+        cd ../front
+        npm install
+        npm start
 
 Frontend will be available at http://localhost:4200.
 
@@ -122,15 +122,15 @@ Frontend will be available at http://localhost:4200.
 
 ## Environment Configuration
 
-PORT=8080
-ALLOWED_ORIGINS=http://localhost:4200,http://127.0.0.1:5173
+        PORT=8080
+        ALLOWED_ORIGINS=http://localhost:4200,http://127.0.0.1:5173
 
-DB_AUTH=windows
-DB_HOST=127.0.0.1
-DB_PORT=1433
-DB_NAME=STILY_SHOP
-DB_ENCRYPT=true
-TRUST_SERVER_CERT=true
+        DB_AUTH=windows
+        DB_HOST=127.0.0.1
+        DB_PORT=1433
+        DB_NAME=STILY_SHOP
+        DB_ENCRYPT=true
+        TRUST_SERVER_CERT=true
 
 ---
 
